@@ -1,8 +1,14 @@
-## Usage
+# Description
+The system recursively uses models for convolution operations on inputs, 
+coupled with simple attention mechanisms to deal with priorities and points that need to be subdivided. 
+The model is designed to deal with and solve both logical and mathematical problems, 
+as it is common to think about mathematical problems by converting them into several simple problems or combinations of definitions.
+
+# Usage
 
 To use the models, you can follow these steps:
 
-1. Import the necessary modules:
+## 1. Import the necessary modules:
 
 ```python
 import torch
@@ -10,7 +16,7 @@ from RecursiveModel import RecursiveModel
 from ConvolutionalModel import ConvolutionalModel
 ```
 
-2. Create instances of the models:
+## 2. Create instances of the RecursiveModel:
 
 ```python
 batch_size = 10
@@ -24,25 +30,29 @@ model.add_convolutional_layer(1, 3, 5, 3)
 model.add_convolutional_layer(3, 3, 3, 1)
 model.add_linear_layer(16)
 model.add_resize_layer((1, 4, 4))
-
+```
+## 3. Create a ConvolutionalModel instance and link it to the RecursiveModel:
+```python
 # Create a ConvolutionalModel instance
 convolutional_model = ConvolutionalModel(stride=4, kernel_size=4, batch_size=50, RecursiveModel=model)
 ```
 
-3. Generate random input data:
+## 4. Run the model:
 
 ```python
 random_testing_input_matrix = torch.randn(batch_size, *input_size)
-```
-
-4. Run the model:
-
-```python
 output = model(random_testing_input_matrix)
 print(output.shape)
 ```
 
-## Contribution
+## Other features
+The RecursiveModel can also be used with other models or Layers. 
+
+Also, it is possible to use different Recursive Model in different floor of the Recursion process.
+You can add these to the model by using a subclass of RecursiveModel and add functions like add_rnn_layer or add_gru_layer.
+
+
+# Contribution
 
 If you would like to contribute to this project, please follow these steps:
 
