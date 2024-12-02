@@ -1,8 +1,6 @@
 # Description
-The system recursively uses models for convolution operations on inputs, 
-coupled with simple attention mechanisms to deal with priorities and points that need to be subdivided. 
-The model is designed to deal with and solve both logical and mathematical problems, 
-as it is common to think about mathematical problems by converting them into several simple problems or combinations of definitions.
+#### The system recursively uses models for convolution operations on inputs, coupled with simple attention mechanisms to deal with priorities and points that need to be subdivided. 
+#### The model is designed to deal with and solve both logical and mathematical problems,as it is common to think about mathematical problems by converting them into several simple problems or combinations of definitions.
 
 # Usage
 
@@ -34,18 +32,22 @@ model.add_resize_layer((1, 4, 4))
 ## 3. Create a ConvolutionalModel instance and link it to the RecursiveModel:
 ```python
 # Create a ConvolutionalModel instance
-convolutional_model = ConvolutionalModel(stride=4, kernel_size=4, batch_size=50, RecursiveModel=model)
+ConvolutionalModel(stride=1, kernel_size=3, batch_size=100,RecursiveModel=model)
 ```
 
-## 4. Run the model:
+## 4. Enable debug and test the model by using a random matrix:
 
 ```python
+from Debug import debug
+debug.show_reformed_batch_size = True
 random_testing_input_matrix = torch.randn(batch_size, *input_size)
 output = model(random_testing_input_matrix)
 print(output.shape)
 ```
 
 ## Other features
+In the ConvolutionalModel, the model uses an attention mechanism to deal with priorities and points that need to be subdivided. If a chunk's score passes a threshold, it will be stored in a list, wait to be assymbled with other chunks and process. This mechanism is designed to facilitate efficient and effective use of GPU resources.
+
 The RecursiveModel can also be used with other models or Layers. 
 
 Also, it is possible to use different Recursive Model in different floor of the Recursion process.

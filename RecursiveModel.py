@@ -2,6 +2,9 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from enum import Enum
+import sys
+sys.setrecursionlimit(30000)
+
 
 
 multiply = lambda x: x[0]*multiply(x[1:]) if len(x) > 1 else x[0]
